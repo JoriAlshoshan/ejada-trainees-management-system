@@ -36,4 +36,4 @@ For any questions or support, please contact:
 Jori Alshoshan  
 Email: jori.alshoshan@gmail.com  
 
-© 2025 Ejada Systems
+© 2025 Ejada System.
