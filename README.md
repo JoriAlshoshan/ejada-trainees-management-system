@@ -1,3 +1,4 @@
+
 # Ejada Trainees Management System
 
 This project is a web application developed using **ASP.NET Core MVC** to efficiently manage trainee information at Ejada.
