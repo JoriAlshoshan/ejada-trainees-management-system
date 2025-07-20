@@ -60,13 +60,22 @@ namespace EjadaTraineesManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Trainee model)
         {
+            var oldData = _context.Trainees.AsNoTracking().FirstOrDefault(x => x.TraineeId == model.TraineeId);
+
             UploadImage(model);
+
+            if (model.ImageUser == null && oldData != null)
+            {
+                model.ImageUser = oldData.ImageUser;
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Trainees.Update(model);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Trainees));
             }
+
             ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
             ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
 
