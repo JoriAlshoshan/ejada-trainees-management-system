@@ -99,7 +99,7 @@ namespace EjadaTraineesManagementSystem.Controllers
             else if (model.ImageUser == null && model.TraineeId == null)
             {
                 //not upload and new trainee 
-                model.ImageUser = "Default.jpg";
+                model.ImageUser = "default_avatar.png";
             }
             else
             {
