@@ -58,7 +58,6 @@ namespace EjadaTraineesManagementSystem.Migrations
                         .HasColumnType("varchar(250)");
 
                     b.Property<string>("Major")
-                        .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.Property<string>("PhoneNumber")
@@ -70,7 +69,6 @@ namespace EjadaTraineesManagementSystem.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Supervisor")
-                        .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.Property<string>("TraineeName")
