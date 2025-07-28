@@ -2,9 +2,9 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #001081; 
+    background-color: #001081;
     font-family: 'Poppins', sans-serif;
-    color: black; 
+    color: black;
 }
 
 .container {
@@ -15,6 +15,7 @@
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     min-height: 600px;
     color: black;
+    width: 100%;
 }
 
 .navbar {
@@ -27,26 +28,26 @@
 .navbar a,
 .navbar-brand,
 .nav-link {
-   color: #001081 !important;
-   text-decoration: none;
-        margin-right: 15px;
-        font-weight: 600;
-        font-size: 16px;
-    }
+ color: #001081 !important;
+ text-decoration: none;
+ margin-right: 15px;
+ font-weight: 600;
+ font-size: 16px;
+}
 
-    .navbar a:hover,
-    .navbar-brand:hover,
-    .nav-link:hover {
-        color: lightgreen !important;
-        text-decoration: underline;
-    }
+.navbar a:hover,
+.navbar-brand:hover,
+ .nav-link:hover {
+  color: lightgreen !important;
+  text-decoration: underline;
+ }
 
 footer.main-footer {
-    background-image: url('/images/ejada.png'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    min-height: 150px; 
+    background-image: url('/images/ejada.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 150px;
     color: white;
     padding: 15px 20px;
     text-align: left;
@@ -54,8 +55,41 @@ footer.main-footer {
     font-size: 12px;
 }
 
-
-
 .main-title {
     color: #001081;
+}
+
+.nav-link.active {
+    background-color: lightgreen !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 6px 12px;
+    text-decoration: none !important;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px 20px;
+        box-shadow: none;
+        min-height: auto;
+    }
+
+    .navbar a,
+    .nav-link,
+    .navbar-brand {
+        font-size: 14px !important;
+        margin-right: 10px !important;
+    }
+
+    footer.main-footer {
+        font-size: 10px;
+        padding: 10px 15px;
+        text-align: center;
+    }
+}
+
+img, table {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
