@@ -1,22 +1,61 @@
-html {
-  font-size: 14px;
+﻿html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #001081; 
+    font-family: 'Poppins', sans-serif;
+    color: black; 
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8fcff;
+    padding: 20px 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    min-height: 600px;
+    color: black;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.navbar {
+    background-color: white !important;
+    color: #001081 !important;
+    padding: 10px 20px;
+    font-weight: 600;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.navbar a,
+.navbar-brand,
+.nav-link {
+   color: #001081 !important;
+   text-decoration: none;
+        margin-right: 15px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .navbar a:hover,
+    .navbar-brand:hover,
+    .nav-link:hover {
+        color: lightgreen !important;
+        text-decoration: underline;
+    }
+
+footer.main-footer {
+    background-image: url('/images/ejada.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    min-height: 150px; 
+    color: white;
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
 }
 
-body {
-  margin-bottom: 60px;
+
+
+.main-title {
+    color: #001081;
 }
