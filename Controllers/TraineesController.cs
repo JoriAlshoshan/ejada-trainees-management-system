@@ -31,7 +31,7 @@ namespace EjadaTraineesManagementSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Trainee model)
-        {
+        {//
             UploadImage(model);
 
             if (ModelState.IsValid)
@@ -41,6 +41,7 @@ namespace EjadaTraineesManagementSystem.Controllers
                 return RedirectToAction(nameof(Trainees));
 
             }
+            //
             ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
             ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
             return View();

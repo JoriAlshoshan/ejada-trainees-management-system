@@ -37,12 +37,12 @@ namespace EjadaTraineesManagementSystem.Models
 
         [Display(Name = "Major")]
         [Column(TypeName = "varchar(250)")]
-        public string? Major { get; set; } = string.Empty;
+        public string Major { get; set; } = string.Empty;
 
 
         [Display(Name = "Supervisor")]
         [Column(TypeName = "varchar(250)")]
-        public string? Supervisor { get; set; } = string.Empty;
+        public string Supervisor { get; set; } = string.Empty;
 
 
         [Display(Name = "Email")]
