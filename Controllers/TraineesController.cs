@@ -31,19 +31,17 @@ namespace EjadaTraineesManagementSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Trainee model)
-        {//
-            UploadImage(model);
+        {
+            ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
+            ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
 
             if (ModelState.IsValid)
             {
+                UploadImage(model);
                 _context.Trainees.Add(model);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Trainees));
-
             }
-            //
-            ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
-            ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
             return View();
         }
 
