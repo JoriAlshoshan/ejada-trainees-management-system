@@ -1,4 +1,5 @@
 using EjadaTraineesManagementSystem.Data;
+using EjadaTraineesManagementSystem.Filters;
 using Microsoft.EntityFrameworkCore;
 
 namespace EjadaTraineesManagementSystem
@@ -10,7 +11,11 @@ namespace EjadaTraineesManagementSystem
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<LogActionFilter>();
+            });
+
             builder.Services.AddDbContext<ApplicationDbContext>(option=>
             option.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDb")));
             var app = builder.Build();

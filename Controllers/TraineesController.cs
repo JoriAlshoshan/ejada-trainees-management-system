@@ -45,8 +45,30 @@ namespace EjadaTraineesManagementSystem.Controllers
             return View();
         }
 
+		private void UploadImage(Trainee model)
+		{
+			var file = HttpContext.Request.Form.Files;
+			if (file.Count > 0)
+			{
+				//upload image
+				string ImageName = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
+				var fileStream = new FileStream(Path.Combine(@"wwwroot/", "Images", ImageName), FileMode.Create);
+				file[0].CopyTo(fileStream);
+				model.ImageUser = ImageName;
+			}
+			else if (model.ImageUser == null && model.TraineeId == null)
+			{
+				//not upload and new trainee 
+				model.ImageUser = "default_avatar.png";
+			}
+			else
+			{
+				//edit
+				model.ImageUser = model.ImageUser;
+			}
+		}
 
-        public IActionResult Edit(int? Id)
+		public IActionResult Edit(int? Id)
         {
             ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
             ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
@@ -91,29 +113,6 @@ namespace EjadaTraineesManagementSystem.Controllers
             }
 
             return RedirectToAction(nameof(Trainees));
-        }
-
-        private void UploadImage(Trainee model)
-        {
-            var file = HttpContext.Request.Form.Files;
-            if (file.Count > 0)
-            {
-                //upload image
-                string ImageName = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
-                var fileStream = new FileStream(Path.Combine(@"wwwroot/", "Images", ImageName), FileMode.Create);
-                file[0].CopyTo(fileStream);
-                model.ImageUser = ImageName;
-            }
-            else if (model.ImageUser == null && model.TraineeId == null)
-            {
-                //not upload and new trainee 
-                model.ImageUser = "default_avatar.png";
-            }
-            else
-            {
-                //edit
-                model.ImageUser = model.ImageUser;
-            }
         }
 
     }
