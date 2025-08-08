@@ -1,0 +1,22 @@
+{
+    "Trainees Management": "إدارة المتدربين",
+    "Trainee": "متدرب",
+    "Create": "إضافة",
+    "Edit": "تعديل",
+    "Delete": "حذف",
+    "Save": "حفظ",
+    "Back to List": "العودة للقائمة",
+    "TraineeName": "اسم المتدرب",
+    "ImageUser": "الصورة الشخصية",
+    "StartDate": "تاريخ البدء",
+    "PhoneNumber": "رقم الجوال",
+    "Major": "التخصص",
+    "Supervisor": "المشرف",
+    "Email": "البريد الإلكتروني",
+    "DepartmentId": "القسم",
+    "UniversityId": "الجامعة",
+    "Select Department": "اختر القسم",
+    "Select University": "اختر الجامعة",
+    "System Title": "نظام إدارة المتدربين إجادة",
+    "Are you sure you want to delete this record? This action cannot be undone": "هل أنت متأكد من حذف هذا السجل؟ هذا الإجراء لا يمكن التراجع عنه"
+}

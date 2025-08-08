@@ -2,48 +2,50 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EjadaTraineesManagementSystem.Models;
+using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Localization;
 
 namespace EjadaTraineesManagementSystem.Controllers
 {
-    public class TraineesController : Controller
-    {
-        private readonly ApplicationDbContext _context;
-        public TraineesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-        public IActionResult Trainees()
-        {
-            var Result = _context.Trainees.Include(x => x.Department)
-            .Include(x => x.University)
-            .OrderBy(x => x.TraineeName).ToList();
-            return View(Result);
-        }
+	public class TraineesController : Controller
+	{
+		private readonly ApplicationDbContext _context;
+		public TraineesController(ApplicationDbContext context)
+		{
+			_context = context;
+		}
+		public IActionResult Trainees()
+		{
+			var Result = _context.Trainees.Include(x => x.Department)
+			.Include(x => x.University)
+			.OrderBy(x => x.TraineeName).ToList();
+			return View(Result);
+		}
 
-        public IActionResult Create()
-        {
-            ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
-            ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
+		public IActionResult Create()
+		{
+			ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
+			ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
 
-            return View();
-        }
+			return View();
+		}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Trainee model)
-        {
-            ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
-            ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Create(Trainee model)
+		{
+			ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
+			ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
 
-            if (ModelState.IsValid)
-            {
-                UploadImage(model);
-                _context.Trainees.Add(model);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Trainees));
-            }
-            return View();
-        }
+			if (ModelState.IsValid)
+			{
+				UploadImage(model);
+				_context.Trainees.Add(model);
+				_context.SaveChanges();
+				return RedirectToAction(nameof(Trainees));
+			}
+			return View();
+		}
 
 		private void UploadImage(Trainee model)
 		{
@@ -69,52 +71,65 @@ namespace EjadaTraineesManagementSystem.Controllers
 		}
 
 		public IActionResult Edit(int? Id)
-        {
-            ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
-            ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
-            var Result = _context.Trainees.Find(Id);
+		{
+			ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
+			ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
+			var Result = _context.Trainees.Find(Id);
 
-            return View("Create", Result);
-        }
+			return View("Create", Result);
+		}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Trainee model)
-        {
-            var oldData = _context.Trainees.AsNoTracking().FirstOrDefault(x => x.TraineeId == model.TraineeId);
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Edit(Trainee model)
+		{
+			var oldData = _context.Trainees.AsNoTracking().FirstOrDefault(x => x.TraineeId == model.TraineeId);
 
-            UploadImage(model);
+			UploadImage(model);
 
-            if (model.ImageUser == null && oldData != null)
-            {
-                model.ImageUser = oldData.ImageUser;
-            }
+			if (model.ImageUser == null && oldData != null)
+			{
+				model.ImageUser = oldData.ImageUser;
+			}
 
-            if (ModelState.IsValid)
-            {
-                _context.Trainees.Update(model);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Trainees));
-            }
+			if (ModelState.IsValid)
+			{
+				_context.Trainees.Update(model);
+				_context.SaveChanges();
+				return RedirectToAction(nameof(Trainees));
+			}
 
-            ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
-            ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
+			ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
+			ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();
 
-            return View(model);
-        }
+			return View(model);
+		}
 
-        public IActionResult Delete(int? Id)
-        {
-            var Result = _context.Trainees.Find(Id);
-            if (Result != null)
-            {
-                _context.Trainees.Remove(Result);
-                _context.SaveChanges();
-            }
+		public IActionResult Delete(int? Id)
+		{
+			var Result = _context.Trainees.Find(Id);
+			if (Result != null)
+			{
+				_context.Trainees.Remove(Result);
+				_context.SaveChanges();
+			}
 
-            return RedirectToAction(nameof(Trainees));
-        }
+			return RedirectToAction(nameof(Trainees));
+		}
 
-    }
+		[HttpPost]
+
+		public IActionResult SetLanguage(string culture, string returnUrl)
+		{
+			Response.Cookies.Append(
+				CookieRequestCultureProvider.DefaultCookieName,
+				CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+				new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+				);
+
+			return LocalRedirect(returnUrl);
+		}
+
+	}
 
 }

@@ -1,88 +1,98 @@
-﻿@model EjadaTraineesManagementSystem.Models.Trainee
+﻿@using EjadaTraineesManagementSystem.Controllers
+@using Microsoft.Extensions.Localization
+@model EjadaTraineesManagementSystem.Models.Trainee
+@inject IStringLocalizer<TraineesController> Localizer
+
 
 @{
-    ViewData["Title"] = Model == null? "Create": "Edit";
+    var pageTitle = (Model == null || Model.TraineeId == 0) ? Localizer["Create"] : Localizer["Edit"];
+    ViewData["Title"] = pageTitle;
 }
 
-<h1>@ViewData["Title"] Trainee</h1>
+<h1>@pageTitle @Localizer["Trainee"]</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="@ViewData["Title"]" enctype="multipart/form-data">
+        <form asp-action="@(Model?.TraineeId == 0 ? "Create" : "Edit")" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-                <label asp-for="TraineeId" class="control-label"></label>
-                <input asp-for="TraineeId" class="form-control" readonly/>
-                <span asp-validation-for="TraineeId" class="text-danger"></span>
-            </div>*@
-
-            @Html.HiddenFor(model => model.TraineeId)
+            @Html.HiddenFor(m => m.TraineeId)
 
             <div class="form-group">
-                <label asp-for="TraineeName" class="control-label"></label>
+                <label asp-for="TraineeName">@Localizer["TraineeName"]</label>
                 <input asp-for="TraineeName" class="form-control" />
                 <span asp-validation-for="TraineeName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="ImageUser" class="control-label"></label>
+                <label asp-for="ImageUser">@Localizer["ImageUser"]</label>
                 <input type="file" asp-for="ImageUser" class="form-control" />
                 <span asp-validation-for="ImageUser" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
+                <label asp-for="StartDate">@Localizer["StartDate"]</label>
                 <input asp-for="StartDate" class="form-control" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
+                <label asp-for="PhoneNumber">@Localizer["PhoneNumber"]</label>
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Major" class="control-label"></label>
+                <label asp-for="Major">@Localizer["Major"]</label>
                 <input asp-for="Major" class="form-control" />
                 <span asp-validation-for="Major" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Supervisor" class="control-label"></label>
+                <label asp-for="Supervisor">@Localizer["Supervisor"]</label>
                 <input asp-for="Supervisor" class="form-control" />
                 <span asp-validation-for="Supervisor" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+                <label asp-for="Email">@Localizer["Email"]</label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="DepartmentId" class="control-label"></label>
+                <label asp-for="DepartmentId">@Localizer["DepartmentId"]</label>
                 <select asp-for="DepartmentId" class="form-control"
-                        asp-items="@(new SelectList(ViewBag.Departments,"DepartmentId","DepartmentName"))">
-                    <option value="">Select Department</option>
-                    </select>
+                        asp-items="@(new SelectList(ViewBag.Departments, "DepartmentId", "DepartmentName"))">
+                    <option value="">@Localizer["Select Department"]</option>
+                </select>
                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UniversityId" class="control-label"></label>
-                <select asp-for="UniversityId" class="form-control"
-                        asp-items="@(new SelectList(ViewBag.Universities,"UniversityId","UniversityName"))">
-                    <option value="">Select University</option>
 
+            <div class="form-group">
+                <label asp-for="UniversityId">@Localizer["UniversityId"]</label>
+                <select asp-for="UniversityId" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.Universities, "UniversityId", "UniversityName"))">
+                    <option value="">@Localizer["Select University"]</option>
                 </select>
                 <span asp-validation-for="UniversityId" class="text-danger"></span>
             </div>
-            <div class="form-group mt-4">
-                <input type="submit" value="Save" class="btn btn-sm w-50 px-3 py-1" style="background-color: #001081; color: white; font-weight: bold;" />
-            </div>
 
+            <div class="form-group mt-4">
+                <input type="submit" value="@Localizer["Save"]"
+                       class="btn btn-sm w-50 px-3 py-1"
+                       style="background-color: #001081; color: white; font-weight: bold;" />
+            </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Trainees" class="mt-3 d-block" style="color:#001081;">Back to List</a>
+    <a asp-action="Trainees" class="mt-3 d-block" style="color:#001081;">@Localizer["Back to List"]</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
