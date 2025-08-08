@@ -7,20 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Remove="Resources\ar-SA.json" />
-		<Content Remove="Resources\en-US.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="Resources\ar-SA.json" />
-		<None Include="Resources\en-US.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="JsonLocalization" Version="1.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">

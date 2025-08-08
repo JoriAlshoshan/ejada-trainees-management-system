@@ -1,4 +1,4 @@
-using EjadaTraineesManagementSystem.Data;
+﻿using EjadaTraineesManagementSystem.Data;
 using EjadaTraineesManagementSystem.Filters;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
-
 
 namespace EjadaTraineesManagementSystem;
 
@@ -22,15 +21,15 @@ public class Program
             options.Filters.Add<LogActionFilter>();
         });
 
-        builder.Services.AddLocalization();
+        builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
         builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 
         builder.Services.AddMvc()
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization(options =>
             {
-                options.DataAnnotationLocalizerProvider = (type, factory)
-                => factory.Create(typeof(JsonStringLocalizerFactory));
+                options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(type);
             });
 
         builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -46,8 +45,7 @@ public class Program
         });
 
         builder.Services.AddDbContext<ApplicationDbContext>(option =>
-        option.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDb")));
-
+            option.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDb")));
 
         var app = builder.Build();
 
@@ -55,7 +53,6 @@ public class Program
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
 
