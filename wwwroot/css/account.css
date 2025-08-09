@@ -1,0 +1,35 @@
+.account-container {
+    background-image: url('../Images/ejada.png'); /* تأكد أن الصورة موجودة */
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-y;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.account-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    max-width: 480px;
+    width: 100%;
+    opacity: 0.97;
+}
+
+.login-button {
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+    .login-button:hover {
+        background: linear-gradient(135deg, #0056b3, #004080);
+        color: white;
+    }

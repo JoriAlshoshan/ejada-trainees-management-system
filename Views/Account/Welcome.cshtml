@@ -1,0 +1,40 @@
+@using Microsoft.AspNetCore.Identity
+@using EjadaTraineesManagementSystem.Models
+@inject UserManager<Users> UserManager
+
+@{
+    ViewData["Title"] = "Welcome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var userName = User.Identity?.Name ?? "User";
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+}
+
+<div class="container mt-5 text-center">
+    <div class="welcome-box p-5 shadow rounded bg-white">
+        <h1 class="display-5 text-dark mb-3">Welcome, @userName 👋</h1>
+        <p class="lead text-muted mb-4">Welcome to Ejada Trainees Management System</p>
+
+        @if (!isAuthenticated)
+        {
+            <div class="d-flex justify-content-center gap-3">
+                <a class="btn btn-primary px-4" asp-controller="Account" asp-action="Login">Login</a>
+                <a class="btn btn-outline-secondary px-4" asp-controller="Account" asp-action="Register">Register</a>
+            </div>
+        }
+        else
+        {
+            <p class="text-success">You're already logged in.</p>
+        }
+    </div>
+</div>
+
+<style>
+    .welcome-box {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #f8f9fa;
+    }
+</style>
+
+

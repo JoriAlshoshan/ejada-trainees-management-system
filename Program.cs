@@ -1,17 +1,21 @@
-﻿using EjadaTraineesManagementSystem.Data;
+using EjadaTraineesManagementSystem.Data;
 using EjadaTraineesManagementSystem.Filters;
+using EjadaTraineesManagementSystem.Models;
+using EjadaTraineesManagementSystem.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace EjadaTraineesManagementSystem;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -47,7 +51,22 @@ public class Program
         builder.Services.AddDbContext<ApplicationDbContext>(option =>
             option.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDb")));
 
+        builder.Services.AddIdentity<Users, IdentityRole>(options =>
+        {
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequiredLength = 8;
+            options.User.RequireUniqueEmail = true;
+          //  options.SignIn.RequireConfirmedAccount = true;
+           // options.SignIn.RequireConfirmedEmail = true;
+           // options.SignIn.RequireConfirmedPhoneNumber = true;
+        })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+
         var app = builder.Build();
+        await SeedService.SeedDatabase(app.Services);
 
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
@@ -69,11 +88,12 @@ public class Program
 
         app.UseRequestLocalization(localizationOption);
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Trainees}/{action=Trainees}/{id?}");
+            pattern: "{controller=Account}/{action=Welcome}/{id?}");
 
         app.Run();
     }

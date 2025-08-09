@@ -1,9 +1,10 @@
-﻿using EjadaTraineesManagementSystem.Data;
+using EjadaTraineesManagementSystem.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EjadaTraineesManagementSystem.Models;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EjadaTraineesManagementSystem.Controllers
 {
@@ -14,6 +15,8 @@ namespace EjadaTraineesManagementSystem.Controllers
 		{
 			_context = context;
 		}
+
+        [Authorize(Roles = "Admin")]
 		public IActionResult Trainees()
 		{
 			var Result = _context.Trainees.Include(x => x.Department)
@@ -22,7 +25,17 @@ namespace EjadaTraineesManagementSystem.Controllers
 			return View(Result);
 		}
 
-		public IActionResult Create()
+        [Authorize(Roles = "Supervisor")]
+        public IActionResult TraineesOfSupervisor()
+        {
+            var Result = _context.Trainees.Include(x => x.Department)
+            .Include(x => x.University)
+            .OrderBy(x => x.TraineeName).ToList();
+            return View(Result);
+        }
+
+        [Authorize]
+        public IActionResult Create()
 		{
 			ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
 			ViewBag.Universities = _context.Universities.OrderBy(x => x.UniversityName).ToList();

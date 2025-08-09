@@ -1,0 +1,49 @@
+@using EjadaTraineesManagementSystem.Controllers
+@using Microsoft.Extensions.Localization
+@model IEnumerable<EjadaTraineesManagementSystem.Models.Trainee>
+@inject IStringLocalizer<TraineesController> Localizer
+
+@{
+    ViewData["Title"] = Localizer["Trainees Management"];
+}
+
+<h1 class="main-title">@ViewData["Title"]</h1>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Localizer["TraineeName"]</th>
+                <th>@Localizer["ImageUser"]</th>
+                <th>@Localizer["StartDate"]</th>
+                <th>@Localizer["PhoneNumber"]</th>
+                <th>@Localizer["Major"]</th>
+                <th>@Localizer["Supervisor"]</th>
+                <th>@Localizer["Email"]</th>
+                <th>@Localizer["DepartmentId"]</th>
+                <th>@Localizer["UniversityId"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TraineeName</td>
+                    <td>
+                        <img src="~/Images/@item.ImageUser" style="width:35px;height:35px" />
+                    </td>
+                    <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Major</td>
+                    <td>@item.Supervisor</td>
+                    <td>@item.Email</td>
+                    <td>@item.Department?.DepartmentName</td>
+                    <td>@item.University?.UniversityName</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
