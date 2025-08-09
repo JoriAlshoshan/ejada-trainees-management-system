@@ -34,7 +34,6 @@ namespace EjadaTraineesManagementSystem.Controllers
             return View(Result);
         }
 
-        [Authorize]
         public IActionResult Create()
 		{
 			ViewBag.Departments = _context.Departments.OrderBy(x => x.DepartmentName).ToList();
