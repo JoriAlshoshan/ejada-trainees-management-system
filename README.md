@@ -57,7 +57,6 @@ For any questions or support, please contact:
 Email: jori.alshoshan@gmail.com
 
 **Lamia Alsuhibani**
-
 Email: lamiaalsuhibani@gmail.com
 
 © 2025 Ejada System
