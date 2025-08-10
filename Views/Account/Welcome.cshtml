@@ -1,9 +1,11 @@
 @using Microsoft.AspNetCore.Identity
 @using EjadaTraineesManagementSystem.Models
 @inject UserManager<Users> UserManager
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
 
 @{
-    ViewData["Title"] = "Welcome";
+    ViewData["Title"] = Localizer["Welcome"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var userName = User.Identity?.Name ?? "User";
@@ -12,19 +14,19 @@
 
 <div class="container mt-5 text-center">
     <div class="welcome-box p-5 shadow rounded bg-white">
-        <h1 class="display-5 text-dark mb-3">Welcome, @userName 👋</h1>
-        <p class="lead text-muted mb-4">Welcome to Ejada Trainees Management System</p>
+        <h1 class="display-5 text-dark mb-3">@Localizer["Welcome"], @userName </h1>
+        <p class="lead text-muted mb-4">@Localizer["Welcome to Ejada Trainees Management System"]</p>
 
         @if (!isAuthenticated)
         {
             <div class="d-flex justify-content-center gap-3">
-                <a class="btn btn-primary px-4" asp-controller="Account" asp-action="Login">Login</a>
-                <a class="btn btn-outline-secondary px-4" asp-controller="Account" asp-action="Register">Register</a>
+                <a class="btn btn-primary px-4" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
+                <a class="btn btn-outline-secondary px-4" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a>
             </div>
         }
         else
         {
-            <p class="text-success">You're already logged in.</p>
+            <p class="text-success">@Localizer["You're already logged in."]</p>
         }
     </div>
 </div>
@@ -36,5 +38,6 @@
         background: #f8f9fa;
     }
 </style>
+
 
 

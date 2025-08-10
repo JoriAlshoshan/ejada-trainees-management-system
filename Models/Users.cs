@@ -5,6 +5,7 @@ namespace EjadaTraineesManagementSystem.Models
     public class Users :IdentityUser
     {
         public string fullName {  get; set; }
+        public ICollection<SupervisorTrainee> SupervisorTrainees { get; set; }
 
     }
 }

@@ -4,6 +4,7 @@ using EjadaTraineesManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EjadaTraineesManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250809140614_InitialIdentitySetup")]
+    partial class InitialIdentitySetup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,30 +42,15 @@ namespace EjadaTraineesManagementSystem.Migrations
                     b.ToTable("Departments", "HR");
                 });
 
-            modelBuilder.Entity("EjadaTraineesManagementSystem.Models.SupervisorTrainee", b =>
-                {
-                    b.Property<string>("SupervisorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TraineeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SupervisorId", "TraineeId");
-
-                    b.HasIndex("TraineeId");
-
-                    b.ToTable("SupervisorTrainees");
-                });
-
             modelBuilder.Entity("EjadaTraineesManagementSystem.Models.Trainee", b =>
                 {
-                    b.Property<int>("TraineeId")
+                    b.Property<int?>("TraineeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TraineeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("TraineeId"));
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -84,15 +72,15 @@ namespace EjadaTraineesManagementSystem.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("SupervisorIds")
+                    b.Property<string>("Supervisor")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(250)");
 
                     b.Property<string>("TraineeName")
                         .IsRequired()
                         .HasColumnType("varchar(250)");
 
-                    b.Property<int?>("UniversityId")
+                    b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
                     b.HasKey("TraineeId");
@@ -166,9 +154,6 @@ namespace EjadaTraineesManagementSystem.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TraineeId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -189,8 +174,6 @@ namespace EjadaTraineesManagementSystem.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("TraineeId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -328,45 +311,23 @@ namespace EjadaTraineesManagementSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EjadaTraineesManagementSystem.Models.SupervisorTrainee", b =>
-                {
-                    b.HasOne("EjadaTraineesManagementSystem.Models.Users", "SupervisorUser")
-                        .WithMany("SupervisorTrainees")
-                        .HasForeignKey("SupervisorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EjadaTraineesManagementSystem.Models.Trainee", "Trainee")
-                        .WithMany("SupervisorTrainees")
-                        .HasForeignKey("TraineeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SupervisorUser");
-
-                    b.Navigation("Trainee");
-                });
-
             modelBuilder.Entity("EjadaTraineesManagementSystem.Models.Trainee", b =>
                 {
                     b.HasOne("EjadaTraineesManagementSystem.Models.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("EjadaTraineesManagementSystem.Models.University", "University")
                         .WithMany()
-                        .HasForeignKey("UniversityId");
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Department");
 
                     b.Navigation("University");
-                });
-
-            modelBuilder.Entity("EjadaTraineesManagementSystem.Models.Users", b =>
-                {
-                    b.HasOne("EjadaTraineesManagementSystem.Models.Trainee", null)
-                        .WithMany("Supervisors")
-                        .HasForeignKey("TraineeId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -418,18 +379,6 @@ namespace EjadaTraineesManagementSystem.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EjadaTraineesManagementSystem.Models.Trainee", b =>
-                {
-                    b.Navigation("SupervisorTrainees");
-
-                    b.Navigation("Supervisors");
-                });
-
-            modelBuilder.Entity("EjadaTraineesManagementSystem.Models.Users", b =>
-                {
-                    b.Navigation("SupervisorTrainees");
                 });
 #pragma warning restore 612, 618
         }

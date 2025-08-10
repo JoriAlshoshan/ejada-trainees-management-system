@@ -1,14 +1,102 @@
 @using EjadaTraineesManagementSystem.ViewModels
 @model LoginViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = Localizer["Login"];
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
+<style>
+    .account-container {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background: #f9f9f9;
+    }
+
+    .account-box {
+        background: #fff;
+        padding: 40px 50px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        max-width: 420px;
+        width: 100%;
+        font-family: 'Poppins', sans-serif;
+    }
+
+        .account-box h2 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #007bff; 
+        }
+
+        .account-box .form-control {
+            font-size: 1rem;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1.5px solid #ced4da;
+            transition: border-color 0.3s ease;
+        }
+
+            .account-box .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 8px rgba(0,123,255,0.3);
+            }
+
+        .account-box .text-danger {
+            font-size: 0.875rem;
+        }
+
+    .d-flex.justify-content-between.align-items-center {
+        font-size: 0.9rem;
+    }
+
+    .form-check-label {
+        font-weight: 500;
+    }
+
+    a.text-decoration-none {
+        color: #007bff;
+        transition: color 0.2s ease;
+    }
+
+        a.text-decoration-none:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+    .login-button {
+        background: #007bff;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .login-button:hover {
+            background: #0056b3;
+        }
+
+    .account-box .text-center p {
+        font-size: 0.95rem;
+    }
+
+    .account-box .text-muted {
+        font-size: 0.85rem;
+        margin-top: 10px;
+        display: block;
+    }
+</style>
+
 <div class="account-container">
     <div class="account-box shadow">
-        <h2 class="text-center mb-4 text-primary">Welcome Back</h2>
+        <h2 class="text-center">@Localizer["Welcome Back"]</h2>
 
         <form asp-action="Login" method="post">
             @Html.AntiForgeryToken()
@@ -16,13 +104,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <div class="mb-3">
-                <label asp-for="Email" class="form-label">Email</label>
+                <label asp-for="Email" class="form-label">@Localizer["Email"]</label>
                 <input asp-for="Email" class="form-control" placeholder="example@domain.com" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Password" class="form-label">Password</label>
+                <label asp-for="Password" class="form-label">@Localizer["Password"]</label>
                 <input asp-for="Password" class="form-control" placeholder="********" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
@@ -31,23 +119,23 @@
                 <div class="form-check">
                     <input asp-for="RememberMe" class="form-check-input" id="rememberMe" />
                     <label class="form-check-label ms-1" for="rememberMe">
-                        Remember me
+                        @Localizer["Remember me"]
                     </label>
                 </div>
                 <a asp-controller="Account" asp-action="VerifyEmail" class="small text-decoration-none">
-                    Forgot Password?
+                    @Localizer["Forgot Password?"]
                 </a>
             </div>
 
-            <button type="submit" class="btn w-100 p-2 login-button">Login</button>
+            <button type="submit" class="btn w-100 p-2 login-button">@Localizer["Login"]</button>
 
             <div class="text-center mt-3">
                 <p>
-                    Don't have an account?
-                    <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Register</a>
+                    @Localizer["Don't have an account?"]
+                    <a asp-controller="Account" asp-action="Register" class="text-decoration-none">@Localizer["Register"]</a>
                 </p>
                 <a asp-controller="Account" asp-action="Welcome" class="text-muted text-decoration-none">
-                    ← Back to Home
+                    ← @Localizer["Back to Home"]
                 </a>
             </div>
         </form>
@@ -57,3 +145,4 @@
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+

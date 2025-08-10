@@ -41,7 +41,7 @@ namespace EjadaTraineesManagementSystem.Services
                         SecurityStamp = Guid.NewGuid().ToString()
                     };
 
-                    var result = await userManager.CreateAsync(adminUser,"Admin123");
+                    var result = await userManager.CreateAsync(adminUser, "Admin@123");
                     if (result.Succeeded) {
                         logger.LogInformation("Assigning Admin role to Admin user.");
                         await userManager.AddToRoleAsync(adminUser, "Admin");

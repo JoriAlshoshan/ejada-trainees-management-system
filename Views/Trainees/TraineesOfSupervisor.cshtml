@@ -36,7 +36,20 @@
                     <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
                     <td>@item.PhoneNumber</td>
                     <td>@item.Major</td>
-                    <td>@item.Supervisor</td>
+                    <td>
+                        @{
+                            var supervisors = item.SupervisorTrainees?.Select(st => st.SupervisorUser?.fullName)
+                            .Where(name => !string.IsNullOrEmpty(name));
+                            if (supervisors != null && supervisors.Any())
+                            {
+                                @string.Join(", ", supervisors)
+                            }
+                            else
+                            {
+                                @Html.Raw("—")
+                            }
+                        }
+                    </td>
                     <td>@item.Email</td>
                     <td>@item.Department?.DepartmentName</td>
                     <td>@item.University?.UniversityName</td>
