@@ -20,7 +20,9 @@ namespace EjadaTraineesManagementSystem.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "Admin")]
+		
+
+		[Authorize(Roles = "Admin")]
         public IActionResult Trainees()
         {
             var trainees = _context.Trainees

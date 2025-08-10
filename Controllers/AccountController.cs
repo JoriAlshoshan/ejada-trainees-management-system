@@ -1,5 +1,6 @@
 using EjadaTraineesManagementSystem.Models;
 using EjadaTraineesManagementSystem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -20,6 +21,11 @@ namespace EjadaTraineesManagementSystem.Controllers
             this.roleManager = roleManager;
         }
 
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
         public IActionResult Welcome()
         {
             return View();

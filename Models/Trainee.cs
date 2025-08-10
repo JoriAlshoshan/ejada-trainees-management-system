@@ -21,7 +21,7 @@ namespace EjadaTraineesManagementSystem.Models
 
         [Display(Name = "StartDate")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MMMM_yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd-MMMM_yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Start Date is required.")]
         public DateTime StartDate { get; set; }
 
