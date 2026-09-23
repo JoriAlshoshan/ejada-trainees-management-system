@@ -19,7 +19,7 @@ The system allows administrators to create, view, update, and delete trainee pro
 
 ## Project Goal
 
-This project was designed to practice and apply:
+This project was designed to practice and apply :
 
 - Building a complete web application using ASP.NET Core MVC.
 - Working with relational databases using Entity Framework Core.
